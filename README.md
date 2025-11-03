@@ -28,10 +28,30 @@ An advanced IoT-based black box system designed for two-wheelers, providing real
 - **Backend**
   - Node.js + TypeScript
   - Express.js
-  - MQTT Protocol
-  - InfluxDB (Time-series Database)
-  - PostgreSQL (User Management)
+  - MQTT Protocol (HiveMQ Cloud)
+  - InfluxDB (Time-series Database for Telemetry)
+  - PostgreSQL (Structured Data & User Management)
   - Winston Logger
+
+### System Architecture
+
+The system uses a multi-database approach for optimal performance:
+
+1. **InfluxDB**: Handles high-frequency time-series data
+   - Real-time telemetry data (GPS, speed, acceleration)
+   - Optimized for time-based queries and aggregations
+   - Built-in data retention policies
+
+2. **PostgreSQL**: Manages structured business data
+   - User management and authentication
+   - Device registration and status
+   - Critical events (crashes, panic alerts)
+   - DPDP compliance data
+
+3. **MQTT**: Real-time communication
+   - QoS 2 for critical events (crashes, panic)
+   - QoS 1 for telemetry data
+   - TLS encryption for security
 
 - **Authentication & Security**
   - JWT Tokens
