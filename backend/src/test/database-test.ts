@@ -1,7 +1,31 @@
-import pool from '../database/connection';
+import { config as dotenvConfig } from 'dotenv';
+import { Pool } from 'pg';
 import { createLogger } from '../utils/logger';
 
+// Load environment variables
+dotenvConfig();
+
 const logger = createLogger('database-test');
+
+// Log the environment variables we're using (mask the password)
+logger.info('Database configuration:', {
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    database: process.env.POSTGRES_DB,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD ? '***' : 'not set'
+});
+
+// Create a test pool
+const pool = new Pool({
+    host: process.env.POSTGRES_HOST,
+    port: parseInt(process.env.POSTGRES_PORT || '5432'),
+    database: process.env.POSTGRES_DB,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: false,
+    keepAlive: true
+});
 
 async function testDatabaseConnection() {
     try {

@@ -1,5 +1,14 @@
 # Database Design Decisions
 
+## Implementation Notes
+
+### Connection Management
+- Implemented connection pooling with configurable limits
+- Used dedicated database user (`iot_user`) for application access
+- Disabled SSL for local development (can be enabled for production)
+- Connection timeout set to 2000ms for quick failure detection
+- Pool size limited to 20 connections to prevent resource exhaustion
+
 ## Key Technical Decisions
 
 1. UUID as Primary Keys

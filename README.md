@@ -37,7 +37,15 @@ An advanced IoT-based black box system designed for two-wheelers, providing real
 
 The system uses a multi-database approach for optimal performance:
 
-1. **InfluxDB**: Handles high-frequency time-series data
+1. **PostgreSQL**: Manages structured business data
+   - User management and authentication
+   - Device registration and event tracking
+   - DPDP compliance data (consents, retention policies)
+   - Uses UUID for primary keys enabling distributed scalability
+   - Implements automated timestamps via triggers
+   - Optimized indexing for emergency response queries
+
+2. **InfluxDB**: Handles high-frequency time-series data
    - Real-time telemetry data (GPS, speed, acceleration)
    - Optimized for time-based queries and aggregations
    - Built-in data retention policies
@@ -70,11 +78,22 @@ The system uses a multi-database approach for optimal performance:
    npm install
    ```
 
-3. Configure environment variables:
-   - Copy `.env.example` to `.env`
-   - Update the configuration values
+3. Set up PostgreSQL:
+   - Create database: `iot_black_box_dev`
+   - Create application user: `iot_user`
+   - Run schema migrations from `backend/src/database/schema.sql`
+   - Verify setup using provided test script
 
-4. Start the development server:
+4. Configure environment variables:
+   - Copy `.env.example` to `.env`
+   - Update database credentials and other configurations
+
+5. Verify setup:
+   ```bash
+   npm run test:db
+   ```
+
+6. Start the development server:
    ```bash
    npm run dev
    ```

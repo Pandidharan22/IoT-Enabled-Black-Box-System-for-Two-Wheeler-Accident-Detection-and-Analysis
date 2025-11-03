@@ -16,6 +16,9 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     // Maximum time (ms) to wait for a client from the pool
     connectionTimeoutMillis: 2000,
+    // Disable SSL for local development
+    ssl: false,
+    keepAlive: true
 });
 
 // Test database connection
