@@ -30,7 +30,7 @@
 ### Test 1: Initial Map Load
 1. Open browser to `http://localhost:5173/`
 2. **Expected**: Loading spinner appears while fetching devices
-3. **Expected**: Map loads with 3 mock devices (Alpha, Beta, Gamma) in Delhi area
+3. **Expected**: Map loads with 3 mock devices (Alpha, Beta, Gamma) in Chennai area
 4. **Expected**: Device sidebar shows all 3 devices grouped by status
 
 ### Test 2: Device Marker Interaction
@@ -181,13 +181,13 @@
 
 ## Mock Data Details
 
-The frontend includes 3 mock devices for testing:
+The frontend includes 3 mock devices for testing in Chennai, Tamil Nadu:
 
 | Device | Status | Location | Battery | Speed | Last Seen |
 |--------|--------|----------|---------|-------|-----------|
-| Vehicle Alpha (XYZ123) | Online | 28.6139, 77.2090 | 87% | 45.5 km/h | 5 min ago |
-| Vehicle Beta (ABC789) | Idle | 28.6289, 77.2190 | 92% | 0 km/h | 30 min ago |
-| Vehicle Gamma (DEF456) | Offline | 28.6039, 77.1990 | 45% | 0 km/h | 2 hours ago |
+| Vehicle Alpha (XYZ123) | Online | 13.0827, 80.2707 (T Nagar) | 87% | 45.5 km/h | 5 min ago |
+| Vehicle Beta (ABC789) | Idle | 13.0475, 80.2570 (Adyar) | 92% | 0 km/h | 30 min ago |
+| Vehicle Gamma (DEF456) | Offline | 13.1189, 80.2072 (Anna Nagar) | 45% | 0 km/h | 2 hours ago |
 
 ## Next Steps (After Testing)
 

@@ -55,8 +55,8 @@ function Dashboard() {
           location: {
             deviceId: '1',
             timestamp: new Date().toISOString(),
-            latitude: 28.6139,
-            longitude: 77.2090,
+            latitude: 13.0827,  // Chennai - T Nagar
+            longitude: 80.2707,
             speed: 45.5,
             heading: 135,
             accuracy: 5,
@@ -77,8 +77,8 @@ function Dashboard() {
           location: {
             deviceId: '2',
             timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-            latitude: 28.6289,
-            longitude: 77.2190,
+            latitude: 13.0475,  // Chennai - Adyar
+            longitude: 80.2570,
             speed: 0,
             heading: 0,
             accuracy: 8,
@@ -99,8 +99,8 @@ function Dashboard() {
           location: {
             deviceId: '3',
             timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-            latitude: 28.6039,
-            longitude: 77.1990,
+            latitude: 13.1189,  // Chennai - Anna Nagar
+            longitude: 80.2072,
             speed: 0,
             heading: 270,
             accuracy: 15,

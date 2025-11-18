@@ -179,10 +179,10 @@ const LiveMap: React.FC<LiveMapProps> = ({
     }
   }, [selectedDeviceId, devices]);
 
-  // Default center: India (Delhi)
+  // Default center: India (Chennai, Tamil Nadu)
   const defaultCenter: [number, number] = initialCenter || [
-    parseFloat(import.meta.env.VITE_MAP_DEFAULT_LAT || '28.6139'),
-    parseFloat(import.meta.env.VITE_MAP_DEFAULT_LNG || '77.2090')
+    parseFloat(import.meta.env.VITE_MAP_DEFAULT_LAT || '13.0827'),
+    parseFloat(import.meta.env.VITE_MAP_DEFAULT_LNG || '80.2707')
   ];
 
   return (
