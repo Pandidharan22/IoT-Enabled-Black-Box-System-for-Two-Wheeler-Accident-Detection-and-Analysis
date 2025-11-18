@@ -1,11 +1,20 @@
 import { Router } from 'express';
+import eventsRoutes from '../../routes/events.routes';
+import devicesRoutes from '../../routes/devices.routes';
 
 const router = Router();
 
-// API routes will be added here
-// Example:
-// router.use('/devices', deviceRoutes);
-// router.use('/users', userRoutes);
-// router.use('/events', eventRoutes);
+// API routes
+router.use('/events', eventsRoutes);
+router.use('/devices', devicesRoutes);
+
+// Health check endpoint
+router.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'API is healthy',
+    timestamp: new Date().toISOString(),
+  });
+});
 
 export default router;
