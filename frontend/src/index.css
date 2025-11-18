@@ -1,9 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Leaflet CSS import */
+/* Leaflet CSS import - must come before Tailwind */
 @import 'leaflet/dist/leaflet.css';
+
+@import 'tailwindcss';
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

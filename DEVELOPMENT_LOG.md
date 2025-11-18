@@ -489,10 +489,265 @@ ESP32 Device → MQTT Broker (HiveMQ) → Node.js Backend
 
 ---
 
+## Phase 3: Frontend Dashboard (Nov 18, 2025)
+
+### Completed Work
+
+#### React + TypeScript + Vite Setup
+- **Framework**: React 19.2 with TypeScript strict mode
+- **Build Tool**: Vite 7.2 for fast HMR and optimized builds
+- **Routing**: React Router DOM v7 for client-side navigation
+- **Styling**: TailwindCSS v4 with custom color palette
+- **Package Manager**: npm with all dependencies installed
+
+#### Project Structure Created
+```
+frontend/
+├── src/
+│   ├── pages/           # Dashboard, Devices, Events
+│   ├── components/      # Reusable UI components (ready)
+│   ├── services/        # API client with Axios
+│   ├── context/         # Global state management (ready)
+│   ├── utils/           # Helper functions (ready)
+│   └── assets/          # Static resources
+├── public/              # Public assets
+└── Configuration files (Vite, TypeScript, TailwindCSS, PostCSS)
+```
+
+#### Core Dependencies Installed
+- **Navigation**: react-router-dom v7.9.6
+- **HTTP Client**: axios v1.13.2 with interceptors
+- **Mapping**: leaflet v1.9.4 + react-leaflet v5.0.0
+- **Charts**: chart.js v4.5.1 + react-chartjs-2 v5.3.1
+- **Styling**: tailwindcss v4.1.17 + @tailwindcss/postcss
+- **TypeScript Types**: @types/leaflet, @types/react, @types/node
+
+#### Main App Component (App.tsx)
+- **Sidebar Navigation**: Fixed left sidebar with 3 routes
+  - Dashboard (📊) - Overview and stats
+  - Devices (📱) - Device management
+  - Events (🚨) - Event monitoring
+- **Active Route Highlighting**: Blue background for current page
+- **System Status Indicator**: Online/offline badge with pulse animation
+- **Responsive Layout**: Sidebar + main content area
+
+#### Dashboard Page (Dashboard.tsx)
+**Stats Cards Section**:
+- Active Devices card (12 devices, +2 new this week)
+- Total Events card (47 events: 3 crash, 44 panic)
+- Critical Alerts card (3 alerts requiring attention)
+- Icons with colored backgrounds (blue, yellow, red)
+
+**Quick Actions Section**:
+- "View All Devices" button → navigates to /devices
+- "View All Events" button → navigates to /events
+
+**Recent Activity Feed**:
+- Last 3 activities with timestamps
+- Event type icons (🚨 crash, 📱 device, ✅ resolved)
+- Device IDs and relative timestamps
+
+**Live Tracking Map Placeholder**:
+- Gray placeholder for Leaflet map integration
+- Informative message: "Map integration coming soon"
+- Reserved 384px height for future map
+
+#### Devices Page (Devices.tsx)
+**Search & Filter Controls**:
+- Device search input field
+- Status filter dropdown (All, Active, Inactive, Maintenance)
+- "Register Device" button (top-right)
+
+**Device Grid (3 columns)**:
+- Device cards with hover shadow effect
+- Status badges (Active: green, Inactive: yellow)
+- Device details displayed:
+  - IMEI number (15 digits)
+  - Vehicle registration number
+  - Last seen timestamp
+  - Firmware version
+- "View Details" button per card
+
+**Sample Devices**:
+- Device XYZ123 (Active, DL-01-AB-1234)
+- Device ABC789 (Active, MH-02-CD-5678)
+- Device DEF456 (Inactive, KA-03-EF-9012)
+
+#### Events Page (Events.tsx)
+**Filter Bar**:
+- Event type dropdown (All, Crash, Panic)
+- Severity dropdown (All, Critical, Moderate, Minor)
+- Date range dropdown (Last 24h, 7d, 30d, Custom)
+- Device search input
+
+**Events Table**:
+- 7 columns: Event Type, Device ID, Severity, Location, Timestamp, Status, Actions
+- Color-coded severity badges:
+  - Critical: red background
+  - Moderate: yellow background
+  - Minor: blue background
+- Status badges:
+  - Pending: yellow background
+  - Resolved: green background
+- "View Details" action button per row
+
+**Sample Events**:
+- Crash Event (XYZ123, Critical, 28.6139°N 77.2090°E)
+- Panic Event (ABC789, Moderate, 19.0760°N 72.8777°E)
+- Crash Event (DEF456, Minor, 12.9716°N 77.5946°E)
+
+**Pagination**:
+- Showing 1-3 of 47 results
+- Previous/Next buttons
+- Page number buttons (1, 2, 3)
+
+#### API Service Layer (services/api.ts)
+**Axios Client Configuration**:
+- Base URL from environment variable (VITE_API_BASE_URL)
+- JSON content-type headers
+- Request interceptor: Adds JWT token from localStorage
+- Response interceptor: Handles 401 errors, redirects to login
+
+**Device API Methods**:
+- `getAll()` - GET /api/devices
+- `getById(deviceId)` - GET /api/devices/:id
+- `create(data)` - POST /api/devices
+- `update(deviceId, data)` - PATCH /api/devices/:id
+- `getStatus(deviceId)` - GET /api/devices/:id/status
+
+**Event API Methods**:
+- `getCrashes(params)` - GET /api/events/crashes with filters
+- `getCrashById(eventId)` - GET /api/events/crashes/:id
+- `updateCrash(eventId, data)` - PATCH /api/events/crashes/:id
+- `getPanics(params)` - GET /api/events/panics with filters
+- `getPanicById(eventId)` - GET /api/events/panics/:id
+- `updatePanic(eventId, data)` - PATCH /api/events/panics/:id
+
+**Telemetry API Methods**:
+- `getByDevice(deviceId, params)` - GET /api/telemetry/device/:id
+- `getLastLocation(deviceId)` - GET /api/telemetry/device/:id/last-location
+- `create(data)` - POST /api/telemetry
+
+#### TailwindCSS Configuration
+**Custom Theme**:
+- Primary color palette: Blue shades (50-900)
+- Responsive breakpoints: sm, md, lg, xl
+- Custom utilities enabled
+
+**Global Styles (index.css)**:
+- Leaflet CSS imported
+- Custom scrollbar styling (8px width, gray colors)
+- Body background: Light gray (#f9fafb)
+- System font stack
+
+#### Environment Configuration (.env)
+```env
+VITE_API_BASE_URL=http://localhost:3000
+VITE_WS_URL=ws://localhost:3000
+VITE_MAP_DEFAULT_LAT=28.6139    # Delhi coordinates
+VITE_MAP_DEFAULT_LNG=77.2090
+VITE_MAP_DEFAULT_ZOOM=12
+```
+
+#### Documentation (frontend/README.md)
+- Comprehensive setup instructions
+- Available npm scripts (dev, build, preview, lint)
+- Feature checklist (current vs. upcoming)
+- API integration examples
+- Development roadmap (Phases 3.1-3.5)
+- Troubleshooting guide
+- Tech stack overview
+
+### Challenges & Solutions
+
+#### Challenge 1: TailwindCSS v4 PostCSS Plugin Error
+**Problem**: `[postcss] It looks like you're trying to use 'tailwindcss' directly as a PostCSS plugin`  
+**Root Cause**: TailwindCSS v4 moved the PostCSS plugin to a separate package (`@tailwindcss/postcss`)  
+**Investigation**:
+- Error appeared on first `npm run dev`
+- Checked TailwindCSS v4 migration guide
+- Confirmed using old v3 PostCSS configuration
+
+**Solution**:
+1. Installed `@tailwindcss/postcss` package: `npm install -D @tailwindcss/postcss`
+2. Updated `postcss.config.js`:
+   ```js
+   export default {
+     plugins: {
+       '@tailwindcss/postcss': {},  // Changed from 'tailwindcss'
+       autoprefixer: {},
+     },
+   }
+   ```
+3. Restarted Vite dev server
+
+**Learning**: TailwindCSS v4 requires `@tailwindcss/postcss` package instead of using the main package directly.
+
+#### Challenge 2: CSS Import Order Error
+**Problem**: `@import must precede all other statements (besides @charset or empty @layer)`  
+**Root Cause**: Leaflet CSS `@import` was placed after `@tailwind` directives  
+**Investigation**:
+- PostCSS requires `@import` statements at the top
+- TailwindCSS v3 syntax with `@tailwind` directives
+- TailwindCSS v4 uses different import syntax
+
+**Solution**:
+1. Moved Leaflet CSS import to top of file
+2. Replaced `@tailwind` directives with TailwindCSS v4 syntax:
+   ```css
+   /* Leaflet CSS import - must come before Tailwind */
+   @import 'leaflet/dist/leaflet.css';
+   
+   @import 'tailwindcss';  /* v4 syntax */
+   ```
+3. Kept custom styles after imports
+
+**Learning**: 
+- CSS `@import` must be first in file (PostCSS requirement)
+- TailwindCSS v4 uses `@import 'tailwindcss'` instead of `@tailwind` directives
+
+#### Challenge 3: Port 5173 Already in Use
+**Problem**: Vite couldn't start on default port 5173  
+**Root Cause**: Previous Vite instance still running  
+**Investigation**:
+- Checked for running node processes
+- Port conflict detected
+
+**Solution**:
+- Vite automatically tried port 5174 and succeeded
+- Killed previous node processes for clean restart
+- Server started successfully on port 5173
+
+**Learning**: Vite has automatic port fallback, but killing old processes ensures consistent development experience.
+
+### Technical Decisions & Rationale
+
+| Decision | Rationale |
+|----------|-----------|
+| **React 19.2** | Latest stable version with improved concurrent features and performance |
+| **Vite 7.2** | Fastest build tool, instant HMR, better DX than Create React App |
+| **TailwindCSS v4** | Utility-first CSS, no runtime overhead, smaller bundle size |
+| **React Router v7** | Most popular React routing library, client-side navigation |
+| **Axios over Fetch** | Interceptors for auth, better error handling, request/response transformation |
+| **Leaflet over Google Maps** | Open-source, no API key required, customizable, lighter weight |
+| **Chart.js over Recharts** | Better performance with large datasets, more flexible |
+| **TypeScript Strict Mode** | Catch errors at compile-time, better IDE support, self-documenting code |
+
+### Key Learnings
+
+1. **TailwindCSS v4 Migration**: Major changes from v3 require package updates and syntax changes
+2. **CSS Import Order**: PostCSS strictly enforces `@import` at top of file
+3. **Vite Development**: Fast HMR and auto port fallback improve developer experience
+4. **Component Structure**: Separating pages, components, and services promotes maintainability
+5. **API Service Layer**: Centralized axios instance with interceptors simplifies authentication
+6. **Environment Variables**: Vite requires `VITE_` prefix for client-side env vars
+
+---
+
 ## Next Phases (Upcoming)
 
-### Phase 3: Frontend Dashboard Development
-**Planned Technologies**: React.js with TypeScript, Leaflet, Chart.js, Socket.io
+### Phase 3.1: Live Tracking Map Integration
+**Planned Technologies**: Leaflet, React Leaflet, custom markers
 
 **Features**:
 - **Live Vehicle Tracking**: Leaflet map with real-time GPS markers
